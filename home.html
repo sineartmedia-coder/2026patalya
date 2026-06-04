@@ -538,27 +538,34 @@
         <div class="slider-wrapper">
             <button class="slider-btn left-btn"><i class="fa-solid fa-chevron-left"></i></button>
             <div class="slider-row">
+                <!-- 1. sıra: Ramazan Üşenmez 1 -->
                 <div class="slider-item">
                     <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/Ramazan%20U%CC%88s%CC%A7enmez%201%402x-80.jpg" alt="Ramazan Üşenmez 1" onerror="this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=281&fit=crop'">
                 </div>
-                <div class="slider-item">
-                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/emere%20u%CC%88senmez%202%402x-80.jpg" alt="Emre Üşenmez 2" onerror="this.src='https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500&h=281&fit=crop'">
-                </div>
-                <div class="slider-item" id="video-preview-item">
-                    <div class="video-preview-wrap">
-                        <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20alt%C4%B1n%203%402x-80.jpg" alt="Ramazan Altın 3" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=281&fit=crop'">
-                        <video class="hover-video" id="ramazan-hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20alt%C4%B1n%20mu%CC%88zikli.mp4" playsinline preload="none"></video>
-                    </div>
-                </div>
+                <!-- 2. sıra: Orhan Bey (eski 4.) -->
                 <div class="slider-item">
                     <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/orhan%20bey%204%402x-80.jpg" alt="Orhan Bey 4" onerror="this.src='https://images.unsplash.com/photo-1585951237318-9ea5e175b891?w=500&h=281&fit=crop'">
                 </div>
+                <!-- 3. sıra: Ramazan Bey Revize (eski 3.) -->
+                <div class="slider-item" id="video-preview-item">
+                    <div class="video-preview-wrap">
+                        <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20bey%20revize%402x-50.jpg" alt="Ramazan Bey Revize" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=281&fit=crop'">
+                        <video class="hover-video" id="ramazan-hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20alt%C4%B1n%20mu%CC%88zikli.mp4" playsinline preload="metadata"></video>
+                    </div>
+                </div>
+                <!-- 4. sıra: Yıldız Hanım (eski 5.) -->
                 <div class="slider-item">
                     <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/y%C4%B1ld%C4%B1z%20han%C4%B1m%205%402x-80.jpg" alt="Yıldız Hanım 5" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500&h=281&fit=crop'">
                 </div>
+                <!-- 5. sıra: Emre Üşenmez (eski 2.) -->
+                <div class="slider-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/emere%20u%CC%88senmez%202%402x-80.jpg" alt="Emre Üşenmez 2" onerror="this.src='https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500&h=281&fit=crop'">
+                </div>
+                <!-- 6. sıra: Gökhan Bey (eski 6.) -->
                 <div class="slider-item">
                     <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/go%CC%88khan%20bey%206%402x-80.jpg" alt="Gökhan Bey 6" onerror="this.src='https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=500&h=281&fit=crop'">
                 </div>
+                <!-- 7. sıra: Som 7 (eski 7.) -->
                 <div class="slider-item">
                     <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/som%207%402x-80.jpg" alt="Som 7" onerror="this.src='https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=500&h=281&fit=crop'">
                 </div>
@@ -774,31 +781,48 @@
             const video = document.getElementById('ramazan-hover-video');
             const posterImg = videoItem.querySelector('.poster-img');
 
-            let startTimer = null;
+            let startTimer  = null;
+            let isHovering  = false;
+
+            // Poster'ı gizle sadece video hazır olunca
+            function showVideo() {
+                if (!isHovering) return; // fare gitmişse iptal
+                video.style.display = 'block';
+                // Video oynatmayı dene (sesli)
+                video.muted = false;
+                video.play().then(() => {
+                    // Oynatma başladı → posteri gizle
+                    if (isHovering && posterImg) posterImg.style.opacity = '0';
+                }).catch(() => {
+                    // Ses izni yoksa sessiz dene
+                    video.muted = true;
+                    video.play().then(() => {
+                        if (isHovering && posterImg) posterImg.style.opacity = '0';
+                    }).catch(() => {});
+                });
+            }
 
             function stopVideo() {
                 clearTimeout(startTimer);
-                startTimer = null;
-                if (video) {
-                    video.pause();
-                    video.currentTime = 0;
-                    video.style.display = 'none';
-                }
+                startTimer  = null;
+                isHovering  = false;
+                video.pause();
+                video.currentTime = 0;
+                video.style.display = 'none';
+                video.muted = false;
                 if (posterImg) posterImg.style.opacity = '1';
             }
 
             videoItem.addEventListener('mouseenter', () => {
-                startTimer = setTimeout(() => {
-                    if (video) {
-                        video.style.display = 'block';
-                        video.play().catch(() => {});
-                        if (posterImg) posterImg.style.opacity = '0';
-                    }
-                }, 1500);
+                isHovering = true;
+                // Yüklemeyi hemen başlat
+                if (video.readyState === 0) video.load();
+                // 1.5sn sonra oynat
+                startTimer = setTimeout(showVideo, 1500);
             });
 
             videoItem.addEventListener('mouseleave', stopVideo);
-            if (video) video.addEventListener('ended', stopVideo);
+            video.addEventListener('ended', stopVideo);
         })();
 
         // Setup Netflix-style hover previews
