@@ -381,6 +381,19 @@
             background: #000;
         }
 
+        /* Sol kenardaki beyaz çizgiyi kapatır */
+        #video-preview-item .video-preview-wrap::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 18px;
+            height: 100%;
+            background: linear-gradient(to right, #000 0%, transparent 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
         .video-preview-wrap .poster-img {
             width: 100%;
             height: auto;
@@ -549,7 +562,7 @@
                 <!-- 3. sıra: Ramazan Bey Revize (eski 3.) -->
                 <div class="slider-item" id="video-preview-item">
                     <div class="video-preview-wrap">
-                        <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20bey%20revize%402x-50.jpg" alt="Ramazan Bey Revize" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=281&fit=crop'">
+                        <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20bey%20revize%402x-50.jpg?v=2" alt="Ramazan Bey Revize" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=281&fit=crop'">
                         <video class="hover-video" id="ramazan-hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20alt%C4%B1n%20mu%CC%88zikli.mp4" playsinline preload="metadata"></video>
                     </div>
                 </div>
