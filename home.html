@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix - Anasayfa</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Homepage Specific Styles */
+        body {
+            background-color: #141414;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 68px;
+            padding: 0 4%;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, rgba(0,0,0,0));
+            z-index: 100;
+            transition: background-color 0.4s;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin-left: 30px;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        .nav-links li a {
+            color: #e5e5e5;
+            text-decoration: none;
+            transition: color 0.4s;
+        }
+
+        .nav-links li a:hover, .nav-links li a.active {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-icon {
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .profile-menu {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .profile-menu .avatar-small {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            background-color: #f70a8d;
+            overflow: hidden;
+        }
+
+        .profile-menu .avatar-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            padding-left: 4%;
+            overflow: hidden;
+            background-color: #000;
+            background-image: url('https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/breaking%20bed.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw;
+            min-height: 100vh;
+            min-width: 177.77vh;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%),
+                        linear-gradient(to top, #141414 0%, rgba(20,20,20,0) 20%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 50%;
+            margin-top: 100px;
+        }
+
+        .movie-title {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 8rem;
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        .btn-play {
+            background-color: white;
+            color: black;
+        }
+
+        .btn-play i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+
+        .btn-more {
+            background-color: rgba(109, 109, 110, 0.7);
+            color: white;
+        }
+
+        .btn-more i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+
+        /* Movie Slider */
+        .slider-container {
+            position: relative;
+            z-index: 10;
+            margin-top: -100px;
+            padding: 0 4%;
+            padding-bottom: 50px;
+        }
+
+        .slider-container:hover {
+            z-index: 50;
+        }
+
+        .slider-title {
+            font-size: 1.4vw;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .slider-row {
+            display: flex;
+            gap: 10px;
+            transition: transform 0.5s ease-in-out;
+            width: max-content;
+            padding-top: 40px;
+            padding-bottom: 80px;
+            margin-top: -40px;
+            margin-bottom: -80px;
+        }
+
+        .slider-item {
+            width: 16.5vw;
+            flex-shrink: 0;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .top-10-item {
+            width: 17.5vw;
+            flex-shrink: 0;
+        }
+
+        .slider-item-content {
+            position: relative;
+            width: 100%;
+            border-radius: 4px;
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
+            background-color: #141414;
+            z-index: 1;
+            transition-delay: 0.1s;
+        }
+
+        .slider-item:hover .slider-item-content {
+            transform: scale(1.55);
+            z-index: 999;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+            transition-delay: 0.4s;
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            transition: border-radius 0.3s;
+        }
+
+        .slider-item:hover img {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            transition-delay: 0.4s;
+        }
+
+        .preview-details {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s;
+            transition-delay: 0s;
+            padding: 12px;
+            background-color: #141414;
+            color: white;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+            z-index: -1;
+        }
+
+        .slider-item:hover .preview-details {
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0.5s;
+        }
+
+        .preview-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .preview-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 2px solid rgba(255,255,255,0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .preview-btn:hover {
+            border-color: white;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .preview-btn.play-btn {
+            background-color: white;
+            color: black;
+            border-color: white;
+        }
+
+        .preview-btn.play-btn:hover {
+            background-color: rgba(255,255,255,0.8);
+        }
+
+        .preview-btn.info-btn {
+            margin-left: auto;
+        }
+
+        .preview-info {
+            font-size: 11px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .preview-info .match {
+            color: #46d369;
+            font-weight: 700;
+        }
+
+        .preview-info .age {
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 1px 5px;
+        }
+
+        .preview-info .hd {
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 3px;
+            padding: 1px 4px;
+            font-size: 9px;
+        }
+
+        .preview-genres {
+            font-size: 11px;
+            color: #e5e5e5;
+        }
+
+        .preview-genres .dot {
+            color: #646464;
+            margin: 0 4px;
+        }
+        
+        .progress-bar-container {
+            width: calc(100% + 24px);
+            height: 3px;
+            background-color: #555;
+            margin-top: -12px;
+            margin-left: -12px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #e50914;
+        }
+        
+        .age-rating {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(51, 51, 51, 0.8);
+            padding: 5px 15px 5px 10px;
+            border-left: 3px solid white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            z-index: 100;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 4vw;
+            min-width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s, background 0.3s, transform 0.1s;
+        }
+
+        .slider-wrapper:hover .slider-btn {
+            opacity: 1;
+        }
+
+        .slider-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .slider-btn i {
+            transition: transform 0.2s;
+        }
+
+        .slider-btn:hover i {
+            transform: scale(1.3);
+        }
+
+        .left-btn {
+            left: 0;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .right-btn {
+            right: 0;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .movie-title {
+                font-size: 4rem;
+            }
+            .slider-item {
+                width: 30vw;
+            }
+            .top-10-item {
+                width: 32vw;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html">
+            <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/logo%402x.png" width="92" alt="Netflix">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Ana Sayfa</a></li>
+            <li><a href="#">Diziler</a></li>
+            <li><a href="#">Filmler</a></li>
+            <li><a href="#">Oyunlar</a></li>
+            <li><a href="#">Yeni ve Popüler</a></li>
+            <li><a href="#">Listem</a></li>
+            <li><a href="#">Dile Göre Göz At</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <i class="fa-solid fa-magnifying-glass nav-icon"></i>
+            <i class="fa-regular fa-bell nav-icon"></i>
+            <div class="profile-menu">
+                <div class="avatar-small">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/gu%CC%88lu%CC%88cu%CC%88k%402x.png" alt="Profile">
+                </div>
+                <i class="fa-solid fa-caret-down" style="color: #fff; font-size: 12px;"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero" id="hero-section">
+        <!-- Arka Plan Videosu -->
+        <iframe id="hero-video" class="hero-video" src="https://www.youtube.com/embed/2gTC4uWP3_Y?enablejsapi=1&mute=1&controls=0&showinfo=0&rel=0&autoplay=0&loop=1&playlist=2gTC4uWP3_Y" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+
+        <div class="hero-content">
+            <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/breaking%20beat%20logo%402x-8.png" alt="Breaking Bad" style="max-width: 500px; width: 100%; margin-bottom: 20px; display: block;">
+            
+            <div class="buttons">
+                <button class="btn btn-play">
+                    <i class="fa-solid fa-play"></i> Oynat
+                </button>
+                <button class="btn btn-more">
+                    <i class="fa-solid fa-circle-info"></i> Daha Fazla Bilgi
+                </button>
+            </div>
+        </div>
+        
+        <div class="age-rating">18+</div>
+    </div>
+
+    <div class="slider-container">
+        <h2 class="slider-title">Ödüllü Filmler</h2>
+        <div class="slider-wrapper">
+            <button class="slider-btn left-btn"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="slider-row">
+                <div class="slider-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/Ramazan%20U%CC%88s%CC%A7enmez%201%402x-80.jpg" alt="Ramazan Üşenmez 1" onerror="this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=281&fit=crop'">
+                </div>
+                <div class="slider-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/emere%20u%CC%88senmez%202%402x-80.jpg" alt="Emre Üşenmez 2" onerror="this.src='https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500&h=281&fit=crop'">
+                </div>
+                <div class="slider-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20alt%C4%B1n%203%402x-80.jpg" alt="Ramazan Altın 3" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=281&fit=crop'">
+                </div>
+                <div class="slider-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/orhan%20bey%204%402x-80.jpg" alt="Orhan Bey 4" onerror="this.src='https://images.unsplash.com/photo-1585951237318-9ea5e175b891?w=500&h=281&fit=crop'">
+                </div>
+                <div class="slider-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/y%C4%B1ld%C4%B1z%20han%C4%B1m%205%402x-80.jpg" alt="Yıldız Hanım 5" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500&h=281&fit=crop'">
+                </div>
+                <div class="slider-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/go%CC%88khan%20bey%206%402x-80.jpg" alt="Gökhan Bey 6" onerror="this.src='https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=500&h=281&fit=crop'">
+                </div>
+                <div class="slider-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/som%207%402x-80.jpg" alt="Som 7" onerror="this.src='https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=500&h=281&fit=crop'">
+                </div>
+            </div>
+            <button class="slider-btn right-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <div class="slider-container" style="margin-top: 30px;">
+        <h2 class="slider-title">2026 Yılının İlk 5 Ayına Damga Vuranlar &nbsp;&nbsp; <strong style="font-weight: 700;">TAŞPINAR TOP 10</strong></h2>
+        <div class="slider-wrapper">
+            <button class="slider-btn left-btn"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="slider-row">
+                <div class="slider-item top-10-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/1%402x.png" alt="Top 1">
+                </div>
+                <div class="slider-item top-10-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/2%402x.png" alt="Top 2">
+                </div>
+                <div class="slider-item top-10-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/3%402x.png" alt="Top 3">
+                </div>
+                <div class="slider-item top-10-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/4%402x.png" alt="Top 4">
+                </div>
+                <div class="slider-item top-10-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/5%402x.png" alt="Top 5">
+                </div>
+                <div class="slider-item top-10-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/6%402x.png" alt="Top 6">
+                </div>
+                <div class="slider-item top-10-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/7%402x.png" alt="Top 7">
+                </div>
+                <div class="slider-item top-10-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/8%402x.png" alt="Top 8">
+                </div>
+                <div class="slider-item top-10-item">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/9%402x.png" alt="Top 9">
+                </div>
+            </div>
+            <button class="slider-btn right-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <div class="slider-container" style="margin-top: 30px;">
+        <h2 class="slider-title">Taşpınar Orijinal Yapımları</h2>
+        <div class="slider-wrapper">
+            <button class="slider-btn left-btn"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="slider-row">
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=281&fit=crop" alt="Orijinal 1">
+                </div>
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500&h=281&fit=crop" alt="Orijinal 2">
+                </div>
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=281&fit=crop" alt="Orijinal 3">
+                </div>
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1585951237318-9ea5e175b891?w=500&h=281&fit=crop" alt="Orijinal 4">
+                </div>
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500&h=281&fit=crop" alt="Orijinal 5">
+                </div>
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=500&h=281&fit=crop" alt="Orijinal 6">
+                </div>
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=500&h=281&fit=crop" alt="Orijinal 7">
+                </div>
+            </div>
+            <button class="slider-btn right-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = '#141414';
+            } else {
+                navbar.style.backgroundColor = 'transparent';
+                navbar.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, rgba(0,0,0,0))';
+            }
+        });
+
+        // Video hover play/reset logic
+        const heroVideo = document.getElementById('hero-video');
+        const heroSection = document.getElementById('hero-section');
+
+        // Mouse üstüne gelirse oyna
+        heroSection.addEventListener('mouseenter', () => {
+            if (heroVideo && heroVideo.contentWindow) {
+                heroVideo.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                heroVideo.style.opacity = '1';
+            }
+        });
+
+        // Mouse çekilince videoyu durdur ve başa/görsele döndür
+        heroSection.addEventListener('mouseleave', () => {
+            if (heroVideo && heroVideo.contentWindow) {
+                heroVideo.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                heroVideo.style.opacity = '0';
+            }
+        });
+
+        // Slider Scroll Logic
+        document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
+            const leftBtn = wrapper.querySelector('.left-btn');
+            const rightBtn = wrapper.querySelector('.right-btn');
+            const row = wrapper.querySelector('.slider-row');
+
+            let currentScroll = 0;
+
+            // Scroll right
+            rightBtn.addEventListener('click', () => {
+                const itemWidth = row.querySelector('.slider-item').offsetWidth + 10;
+                const visibleWidth = wrapper.clientWidth;
+                const itemsToScroll = Math.floor(visibleWidth / itemWidth);
+                const scrollAmount = itemsToScroll * itemWidth;
+                
+                const maxScroll = row.scrollWidth - wrapper.clientWidth;
+                currentScroll += scrollAmount;
+                
+                if (currentScroll > maxScroll) {
+                    currentScroll = maxScroll;
+                }
+                
+                row.style.transform = `translateX(-${currentScroll}px)`;
+                updateButtonsVisibility();
+            });
+
+            // Scroll left
+            leftBtn.addEventListener('click', () => {
+                const itemWidth = row.querySelector('.slider-item').offsetWidth + 10;
+                const visibleWidth = wrapper.clientWidth;
+                const itemsToScroll = Math.floor(visibleWidth / itemWidth);
+                const scrollAmount = itemsToScroll * itemWidth;
+                
+                currentScroll -= scrollAmount;
+                
+                if (currentScroll < 0) {
+                    currentScroll = 0;
+                }
+                
+                row.style.transform = `translateX(-${currentScroll}px)`;
+                updateButtonsVisibility();
+            });
+            
+            // Toggle buttons visibility based on scroll position
+            const updateButtonsVisibility = () => {
+                if (currentScroll <= 0) {
+                    leftBtn.style.display = 'none';
+                } else {
+                    leftBtn.style.display = 'flex';
+                }
+                
+                const maxScroll = row.scrollWidth - wrapper.clientWidth;
+                if (currentScroll >= maxScroll - 10) {
+                    rightBtn.style.display = 'none';
+                } else {
+                    rightBtn.style.display = 'flex';
+                }
+            };
+
+            // Initial check after images might have loaded
+            leftBtn.style.display = 'none';
+            setTimeout(updateButtonsVisibility, 500);
+            window.addEventListener('resize', () => {
+                currentScroll = 0;
+                row.style.transform = `translateX(0px)`;
+                updateButtonsVisibility();
+            });
+        });
+
+        // Setup Netflix-style hover previews
+        document.querySelectorAll('.slider-item').forEach(item => {
+            if (item.querySelector('.preview-details')) return;
+
+            const img = item.querySelector('img');
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'slider-item-content';
+            
+            item.appendChild(contentDiv);
+            contentDiv.appendChild(img);
+
+            const previewHtml = `
+                <div class="preview-details">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: ${Math.floor(Math.random() * 60 + 20)}%"></div>
+                    </div>
+                    <div class="preview-buttons">
+                        <button class="preview-btn play-btn" title="Oynat"><i class="fa-solid fa-play"></i></button>
+                        <button class="preview-btn add-btn" title="Listeme Ekle"><i class="fa-solid fa-plus"></i></button>
+                        <button class="preview-btn like-btn" title="Beğen"><i class="fa-regular fa-thumbs-up"></i></button>
+                        <button class="preview-btn info-btn" title="Daha Fazla Bilgi"><i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                    <div class="preview-info">
+                        <span class="match">98% Eşleşme</span>
+                        <span class="age">18+</span>
+                        <span class="duration">45dk kaldı</span>
+                        <span class="hd">HD</span>
+                    </div>
+                    <div class="preview-genres">
+                        Sürükleyici <span class="dot">•</span> Heyecanlı <span class="dot">•</span> Aksiyon
+                    </div>
+                </div>
+            `;
+            contentDiv.insertAdjacentHTML('beforeend', previewHtml);
+            
+            item.addEventListener('mouseenter', () => {
+                const rect = item.getBoundingClientRect();
+                const container = item.closest('.slider-container');
+                if (!container) return;
+                
+                const containerRect = container.getBoundingClientRect();
+                
+                if (rect.left - containerRect.left < 50) {
+                    contentDiv.style.transformOrigin = 'left center';
+                } else if (containerRect.right - rect.right < 50) {
+                    contentDiv.style.transformOrigin = 'right center';
+                } else {
+                    contentDiv.style.transformOrigin = 'center center';
+                }
+            });
+        });
+        
+    </script>
+</body>
+</html>
