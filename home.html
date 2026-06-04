@@ -264,7 +264,8 @@
             padding: 12px;
             background-color: #141414;
             color: white;
-            border-radius: 0 0 4px 4px;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
             position: absolute;
             top: 100%;
             left: 0;
@@ -272,14 +273,6 @@
             box-sizing: border-box;
             box-shadow: 0 10px 20px rgba(0,0,0,0.8);
             z-index: -1;
-        }
-
-        /* Yukarı açılma modu */
-        .preview-details.open-above {
-            top: auto;
-            bottom: 100%;
-            border-radius: 4px 4px 0 0;
-            box-shadow: 0 -10px 20px rgba(0,0,0,0.8);
         }
 
         .slider-item:hover .preview-details {
@@ -605,6 +598,37 @@
         </div>
     </div>
 
+    <div class="slider-container" style="margin-top: 30px; padding-bottom: 80px;">
+        <h2 class="slider-title">Gece Yarısı Seçkileri</h2>
+        <div class="slider-wrapper">
+            <button class="slider-btn left-btn"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="slider-row">
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&h=281&fit=crop" alt="Gece 1">
+                </div>
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=500&h=281&fit=crop" alt="Gece 2">
+                </div>
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1560109947-543149eceb16?w=500&h=281&fit=crop" alt="Gece 3">
+                </div>
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=281&fit=crop" alt="Gece 4">
+                </div>
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=500&h=281&fit=crop" alt="Gece 5">
+                </div>
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=500&h=281&fit=crop" alt="Gece 6">
+                </div>
+                <div class="slider-item">
+                    <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=500&h=281&fit=crop" alt="Gece 7">
+                </div>
+            </div>
+            <button class="slider-btn right-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
     <script>
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
@@ -747,24 +771,13 @@
                 if (!container) return;
 
                 const containerRect = container.getBoundingClientRect();
-                const previewEl = contentDiv.querySelector('.preview-details');
 
-                // Yatay yön: sol kenara yakınsa soldan, sağ kenara yakınsa sağdan aç
                 if (rect.left - containerRect.left < 50) {
                     contentDiv.style.transformOrigin = 'left center';
                 } else if (containerRect.right - rect.right < 50) {
                     contentDiv.style.transformOrigin = 'right center';
                 } else {
                     contentDiv.style.transformOrigin = 'center center';
-                }
-
-                // Dikey yön: altta boşluk yoksa yukarı aç
-                const previewHeight = 130; // önizleme kutusunun tahmini yüksekliği (px)
-                const scaledBottom = rect.bottom + (rect.height * 0.55 * 1.55) + previewHeight;
-                if (scaledBottom > window.innerHeight) {
-                    previewEl && previewEl.classList.add('open-above');
-                } else {
-                    previewEl && previewEl.classList.remove('open-above');
                 }
             });
         });
