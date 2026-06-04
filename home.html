@@ -547,7 +547,7 @@
                 <div class="slider-item" id="video-preview-item">
                     <div class="video-preview-wrap">
                         <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20alt%C4%B1n%203%402x-80.jpg" alt="Ramazan Altın 3" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=281&fit=crop'">
-                        <video class="hover-video" id="ramazan-hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20alt%C4%B1n%20mu%CC%88zikli.mp4" muted playsinline preload="none"></video>
+                        <video class="hover-video" id="ramazan-hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20alt%C4%B1n%20mu%CC%88zikli.mp4" playsinline preload="none"></video>
                     </div>
                 </div>
                 <div class="slider-item">
@@ -794,7 +794,7 @@
                         video.play().catch(() => {});
                         if (posterImg) posterImg.style.opacity = '0';
                     }
-                }, 3000);
+                }, 1500);
             });
 
             videoItem.addEventListener('mouseleave', stopVideo);
