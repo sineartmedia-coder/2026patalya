@@ -382,7 +382,8 @@
         }
 
         /* Sol kenardaki beyaz çizgiyi kapatır */
-        #video-preview-item .video-preview-wrap::before {
+        #video-preview-item .video-preview-wrap::before,
+        #video-preview-item-2 .video-preview-wrap::before {
             content: '';
             position: absolute;
             top: 0;
@@ -556,8 +557,11 @@
                     <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/Ramazan%20U%CC%88s%CC%A7enmez%201%402x-80.jpg" alt="Ramazan Üşenmez 1" onerror="this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=281&fit=crop'">
                 </div>
                 <!-- 2. sıra: Orhan Bey (eski 4.) -->
-                <div class="slider-item">
-                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/orhan%20bey%204%402x-80.jpg" alt="Orhan Bey 4" onerror="this.src='https://images.unsplash.com/photo-1585951237318-9ea5e175b891?w=500&h=281&fit=crop'">
+                <div class="slider-item" id="video-preview-item-2">
+                    <div class="video-preview-wrap">
+                        <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/orhan%20bey%204%402x-80.jpg" alt="Orhan Bey 4" onerror="this.src='https://images.unsplash.com/photo-1585951237318-9ea5e175b891?w=500&h=281&fit=crop'">
+                        <video class="hover-video" id="gokhan-hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/go%CC%88khan%20bey%20viking.mp4" playsinline preload="metadata"></video>
+                    </div>
                 </div>
                 <!-- 3. sıra: Ramazan Bey Revize (eski 3.) -->
                 <div class="slider-item" id="video-preview-item">
@@ -836,6 +840,51 @@
 
             videoItem.addEventListener('mouseleave', stopVideo);
             video.addEventListener('ended', stopVideo);
+        })();
+
+        // ── Video Hover Önizleme – 2. Film (Orhan Bey / Gökhan Viking) ──────────
+        (function () {
+            const videoItem2 = document.getElementById('video-preview-item-2');
+            if (!videoItem2) return;
+            const video2 = document.getElementById('gokhan-hover-video');
+            const posterImg2 = videoItem2.querySelector('.poster-img');
+
+            let startTimer2 = null;
+            let isHovering2 = false;
+
+            function showVideo2() {
+                if (!isHovering2) return;
+                video2.style.display = 'block';
+                video2.muted = false;
+                video2.play().then(() => {
+                    if (isHovering2 && posterImg2) posterImg2.style.opacity = '0';
+                }).catch(() => {
+                    video2.muted = true;
+                    video2.play().then(() => {
+                        if (isHovering2 && posterImg2) posterImg2.style.opacity = '0';
+                    }).catch(() => {});
+                });
+            }
+
+            function stopVideo2() {
+                clearTimeout(startTimer2);
+                startTimer2 = null;
+                isHovering2 = false;
+                video2.pause();
+                video2.currentTime = 0;
+                video2.style.display = 'none';
+                video2.muted = false;
+                if (posterImg2) posterImg2.style.opacity = '1';
+            }
+
+            videoItem2.addEventListener('mouseenter', () => {
+                isHovering2 = true;
+                if (video2.readyState === 0) video2.load();
+                startTimer2 = setTimeout(showVideo2, 1500);
+            });
+
+            videoItem2.addEventListener('mouseleave', stopVideo2);
+            video2.addEventListener('ended', stopVideo2);
         })();
 
         // Setup Netflix-style hover previews
