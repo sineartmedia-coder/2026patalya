@@ -550,7 +550,6 @@
     <div class="slider-container">
         <h2 class="slider-title">Ödüllü Filmler</h2>
         <div class="slider-wrapper">
-            <button class="slider-btn left-btn"><i class="fa-solid fa-chevron-left"></i></button>
             <div class="slider-row">
                 <!-- 1. sıra: Ramazan Üşenmez 1 -->
                 <div class="slider-item">
@@ -578,16 +577,11 @@
                 <div class="slider-item">
                     <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/emere%20u%CC%88senmez%202%402x-80.jpg" alt="Emre Üşenmez 2" onerror="this.src='https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500&h=281&fit=crop'">
                 </div>
-                <!-- 6. sıra: Gökhan Bey (eski 6.) -->
-                <div class="slider-item">
-                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/go%CC%88khan%20bey%206%402x-80.jpg" alt="Gökhan Bey 6" onerror="this.src='https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=500&h=281&fit=crop'">
-                </div>
-                <!-- 7. sıra: Som 7 (eski 7.) -->
+                <!-- 6. sıra: Som 7 (eski 7.) -->
                 <div class="slider-item">
                     <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/som%207%402x-80.jpg" alt="Som 7" onerror="this.src='https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=500&h=281&fit=crop'">
                 </div>
             </div>
-            <button class="slider-btn right-btn"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </div>
 
@@ -637,7 +631,7 @@
                     <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=281&fit=crop" alt="Orijinal 1">
                 </div>
                 <div class="slider-item">
-                    <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500&h=281&fit=crop" alt="Orijinal 2">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/go%CC%88khan%20bey%206%402x-80.jpg" alt="Gökhan Bey 6" onerror="this.src='https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=500&h=281&fit=crop'">
                 </div>
                 <div class="slider-item">
                     <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=281&fit=crop" alt="Orijinal 3">
@@ -727,6 +721,8 @@
             const leftBtn = wrapper.querySelector('.left-btn');
             const rightBtn = wrapper.querySelector('.right-btn');
             const row = wrapper.querySelector('.slider-row');
+
+            if (!leftBtn || !rightBtn || !row) return;
 
             let currentScroll = 0;
 
