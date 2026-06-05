@@ -496,6 +496,49 @@
                 width: 32vw;
             }
         }
+
+        /* Full Screen Video Modal */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            z-index: 9999;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-modal.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .video-modal-back-btn {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            color: #fff;
+            font-size: 3rem;
+            cursor: pointer;
+            z-index: 10000;
+            background: transparent;
+            border: none;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            transition: transform 0.2s;
+        }
+
+        .video-modal-back-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .video-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -592,32 +635,32 @@
         <div class="slider-wrapper">
             <button class="slider-btn left-btn"><i class="fa-solid fa-chevron-left"></i></button>
             <div class="slider-row">
-                <div class="slider-item top-10-item">
+                <div class="slider-item top-10-item" onclick="openFullscreenVideo('https://www.youtube.com/embed/D_hQBf2VZ-o?autoplay=1&controls=1&rel=0')" style="cursor: pointer;">
                     <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/1%402x.png" alt="Top 1">
                 </div>
                 <div class="slider-item top-10-item">
                     <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/2%402x.png" alt="Top 2">
                 </div>
                 <div class="slider-item top-10-item">
-                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/3%20yeni%402x-50.jpg" alt="Top 3">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/3%20yeni%20%402x-8.png" alt="Top 3">
                 </div>
                 <div class="slider-item top-10-item">
-                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/4%20yeni%402x-50.jpg" alt="Top 4">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/4%20yeni%402x-8.png" alt="Top 4">
                 </div>
                 <div class="slider-item top-10-item">
-                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/5%20yeni%402x-50.jpg" alt="Top 5">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/5%20yeni%402x-8.png" alt="Top 5">
                 </div>
                 <div class="slider-item top-10-item">
-                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/6%20yeni%402x-50.jpg" alt="Top 6">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/6%20yeni%402x-8.png" alt="Top 6">
                 </div>
                 <div class="slider-item top-10-item">
-                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/7%20yeni%402x-50.jpg" alt="Top 7">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/7%20yeni%402x-8.png" alt="Top 7">
                 </div>
                 <div class="slider-item top-10-item">
                     <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/8%402x.png" alt="Top 8">
                 </div>
                 <div class="slider-item top-10-item">
-                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/9%20yeni%402x-50.jpg" alt="Top 9">
+                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/9%20yeni%402x-8.png" alt="Top 9">
                 </div>
             </div>
             <button class="slider-btn right-btn"><i class="fa-solid fa-chevron-right"></i></button>
@@ -895,7 +938,37 @@
                 }
             });
         });
-        
+
+        // Full Screen Video Modal Logic
+        function openFullscreenVideo(videoUrl) {
+            const modal = document.getElementById('fullscreen-video-modal');
+            const iframe = document.getElementById('fullscreen-video-iframe');
+            iframe.src = videoUrl;
+            modal.style.display = 'block';
+            // Trigger reflow
+            void modal.offsetWidth;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // prevent scrolling
+        }
+
+        function closeFullscreenVideo() {
+            const modal = document.getElementById('fullscreen-video-modal');
+            const iframe = document.getElementById('fullscreen-video-iframe');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                iframe.src = '';
+                document.body.style.overflow = '';
+            }, 300);
+        }
     </script>
+
+    <!-- Full Screen Video Modal -->
+    <div id="fullscreen-video-modal" class="video-modal">
+        <button class="video-modal-back-btn" onclick="closeFullscreenVideo()" title="Geri">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <iframe id="fullscreen-video-iframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
 </body>
 </html>
