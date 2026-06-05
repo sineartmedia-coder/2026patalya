@@ -536,14 +536,12 @@
         }
 
         .video-modal iframe {
-            width: 130vw;
-            height: 130vh;
+            width: 100vw;
+            height: calc(100vh + 100px);
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: -100px;
+            left: 0;
             border: none;
-            pointer-events: none;
         }
     </style>
 </head>
@@ -601,7 +599,10 @@
             <div class="slider-row">
                 <!-- 1. sıra: Ramazan Üşenmez 1 -->
                 <div class="slider-item">
-                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/Ramazan%20U%CC%88s%CC%A7enmez%201%402x-80.jpg" alt="Ramazan Üşenmez 1" onerror="this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=281&fit=crop'">
+                    <div class="video-preview-wrap">
+                        <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/Ramazan%20U%CC%88s%CC%A7enmez%201%402x-80.jpg" alt="Ramazan Üşenmez 1" onerror="this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=281&fit=crop'">
+                        <video class="hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/superman.mp4" playsinline preload="metadata"></video>
+                    </div>
                 </div>
                 <!-- 2. sıra: Orhan Bey (eski 4.) -->
                 <div class="slider-item" id="video-preview-item-2">
@@ -626,7 +627,10 @@
                 </div>
                 <!-- 5. sıra: Emre Üşenmez (eski 2.) -->
                 <div class="slider-item">
-                    <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/emere%20u%CC%88senmez%202%402x-80.jpg" alt="Emre Üşenmez 2" onerror="this.src='https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500&h=281&fit=crop'">
+                    <div class="video-preview-wrap">
+                        <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/emere%20u%CC%88senmez%202%402x-80.jpg" alt="Emre Üşenmez 2" onerror="this.src='https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500&h=281&fit=crop'">
+                        <video class="hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/thor.mp4" playsinline preload="metadata"></video>
+                    </div>
                 </div>
                 <!-- 6. sıra: Som 7 (eski 7.) -->
                 <div class="slider-item">
@@ -641,7 +645,7 @@
         <div class="slider-wrapper">
             <button class="slider-btn left-btn"><i class="fa-solid fa-chevron-left"></i></button>
             <div class="slider-row">
-                <div class="slider-item top-10-item" onclick="openFullscreenVideo('https://www.youtube.com/embed/D_hQBf2VZ-o?autoplay=1&controls=0&rel=0&modestbranding=1&showinfo=0')" style="cursor: pointer;">
+                <div class="slider-item top-10-item" onclick="openFullscreenVideo('https://www.youtube.com/embed/D_hQBf2VZ-o?autoplay=1&controls=1&rel=0&modestbranding=1&showinfo=0')" style="cursor: pointer;">
                     <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/1%402x.png" alt="Top 1">
                 </div>
                 <div class="slider-item top-10-item">
@@ -690,7 +694,10 @@
                     </div>
                 </div>
                 <div class="slider-item">
-                    <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=281&fit=crop" alt="Orijinal 3">
+                    <div class="video-preview-wrap">
+                        <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/WhatsApp%20Image%202026-06-05%20at%2014.19.04.jpeg" alt="Orijinal 3" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=281&fit=crop'">
+                        <video class="hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/outlander.mp4" playsinline preload="metadata"></video>
+                    </div>
                 </div>
                 <div class="slider-item">
                     <div class="video-preview-wrap">
