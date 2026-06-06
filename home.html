@@ -878,6 +878,52 @@
             <button class="slider-btn right-btn"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </div>
+    <!-- Full Screen Video Modal -->
+    <div id="fullscreen-video-modal" class="video-modal">
+        <button class="video-modal-back-btn" onclick="closeFullscreenVideo()" title="Geri">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <iframe id="fullscreen-video-iframe" src="" allow="autoplay"></iframe>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="detail-modal-overlay">
+        <div class="detail-modal-content">
+            <button class="detail-modal-close" onclick="closeDetailModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="detail-modal-hero">
+                <img id="detail-modal-img" src="" alt="">
+                <video id="detail-modal-video" playsinline preload="metadata"></video>
+                <div class="detail-modal-gradient"></div>
+                <div class="detail-modal-hero-content">
+                    <div id="detail-modal-title" class="detail-modal-title">Title</div>
+                    <div class="detail-modal-buttons">
+                        <button class="btn btn-play" style="font-size: 16px; padding: 8px 24px;"><i class="fa-solid fa-play"></i> Oynat</button>
+                        <button class="preview-btn add-btn" title="Listeme Ekle"><i class="fa-solid fa-plus"></i></button>
+                        <button class="preview-btn like-btn" title="Beğen"><i class="fa-regular fa-thumbs-up"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-modal-info-container">
+                <div class="detail-modal-info-left">
+                    <div class="preview-info" style="font-size: 16px; margin-bottom: 20px;">
+                        <span class="match" style="color: #46d369; font-weight: 700;">%98 Eşleşme</span>
+                        <span>2026</span>
+                        <span class="age" style="border: 1px solid rgba(255,255,255,0.4); padding: 1px 5px; margin: 0 5px;">18+</span>
+                        <span>2 Sezon</span>
+                        <span class="hd" style="border: 1px solid rgba(255,255,255,0.4); border-radius: 3px; padding: 1px 4px; font-size: 12px; margin-left: 5px;">HD</span>
+                    </div>
+                    <div class="detail-modal-desc" style="font-size: 16px; line-height: 1.5; color: #fff;">
+                        Eğer sen de hayatın monotonluğundan sıkıldıysan ve gerçekliğin sınırlarını zorlamak istiyorsan, doğru yerdesin. Soluksuz izleyeceğin, sınırların ötesine geçeceğin bir serüven seni bekliyor.
+                    </div>
+                </div>
+                <div class="detail-modal-info-right" style="font-size: 14px; color: #777; line-height: 1.6;">
+                    <p><span style="color: white;">Oyuncu Kadrosu:</span> Ramazan Üşenmez, Gökhan Taşpınar, Emre Üşenmez</p>
+                    <p><span style="color: white;">Türler:</span> Sürükleyici, Heyecanlı, Aksiyon, Bilim Kurgu</p>
+                    <p><span style="color: white;">Bu dizi:</span> Sürükleyici, Karamsar, Heyecanlı</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Navbar scroll effect
@@ -1135,53 +1181,6 @@
             }, 300);
         }
     </script>
-
-    <!-- Full Screen Video Modal -->
-    <div id="fullscreen-video-modal" class="video-modal">
-        <button class="video-modal-back-btn" onclick="closeFullscreenVideo()" title="Geri">
-            <i class="fa-solid fa-arrow-left"></i>
-        </button>
-        <iframe id="fullscreen-video-iframe" src="" allow="autoplay"></iframe>
-    </div>
-
-    <!-- Detail Modal -->
-    <div id="detail-modal" class="detail-modal-overlay">
-        <div class="detail-modal-content">
-            <button class="detail-modal-close" onclick="closeDetailModal()"><i class="fa-solid fa-xmark"></i></button>
-            <div class="detail-modal-hero">
-                <img id="detail-modal-img" src="" alt="">
-                <video id="detail-modal-video" playsinline preload="metadata"></video>
-                <div class="detail-modal-gradient"></div>
-                <div class="detail-modal-hero-content">
-                    <div id="detail-modal-title" class="detail-modal-title">Title</div>
-                    <div class="detail-modal-buttons">
-                        <button class="btn btn-play" style="font-size: 16px; padding: 8px 24px;"><i class="fa-solid fa-play"></i> Oynat</button>
-                        <button class="preview-btn add-btn" title="Listeme Ekle"><i class="fa-solid fa-plus"></i></button>
-                        <button class="preview-btn like-btn" title="Beğen"><i class="fa-regular fa-thumbs-up"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="detail-modal-info-container">
-                <div class="detail-modal-info-left">
-                    <div class="preview-info" style="font-size: 16px; margin-bottom: 20px;">
-                        <span class="match" style="color: #46d369; font-weight: 700;">%98 Eşleşme</span>
-                        <span>2026</span>
-                        <span class="age" style="border: 1px solid rgba(255,255,255,0.4); padding: 1px 5px; margin: 0 5px;">18+</span>
-                        <span>2 Sezon</span>
-                        <span class="hd" style="border: 1px solid rgba(255,255,255,0.4); border-radius: 3px; padding: 1px 4px; font-size: 12px; margin-left: 5px;">HD</span>
-                    </div>
-                    <div class="detail-modal-desc" style="font-size: 16px; line-height: 1.5; color: #fff;">
-                        Eğer sen de hayatın monotonluğundan sıkıldıysan ve gerçekliğin sınırlarını zorlamak istiyorsan, doğru yerdesin. Soluksuz izleyeceğin, sınırların ötesine geçeceğin bir serüven seni bekliyor.
-                    </div>
-                </div>
-                <div class="detail-modal-info-right" style="font-size: 14px; color: #777; line-height: 1.6;">
-                    <p><span style="color: white;">Oyuncu Kadrosu:</span> Ramazan Üşenmez, Gökhan Taşpınar, Emre Üşenmez</p>
-                    <p><span style="color: white;">Türler:</span> Sürükleyici, Heyecanlı, Aksiyon, Bilim Kurgu</p>
-                    <p><span style="color: white;">Bu dizi:</span> Sürükleyici, Karamsar, Heyecanlı</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </body>
 </html>
