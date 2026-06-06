@@ -1020,13 +1020,6 @@
                 clearTimeout(detailModalTimer);
                 
                 if (video && video.src) {
-                    detailModalTimer = setTimeout(() => {
-                        modalImg.style.display = 'none';
-                        modalVideo.style.display = 'block';
-                        modalVideo.muted = false;
-                        modalVideo.play().catch(() => {});
-                    }, 1500);
-                    
                     modalVideo.onended = () => {
                         modalVideo.style.display = 'none';
                         modalImg.style.display = 'block';
@@ -1048,6 +1041,20 @@
                 modalVideo.currentTime = 0;
             }
         }
+
+        // Modal içi oynat butonu
+        document.querySelector('#detail-modal .btn-play').addEventListener('click', () => {
+            const modalImg = document.getElementById('detail-modal-img');
+            const modalVideo = document.getElementById('detail-modal-video');
+            
+            if (modalVideo && modalVideo.src && !modalVideo.src.endsWith(location.pathname)) {
+                clearTimeout(detailModalTimer);
+                modalImg.style.display = 'none';
+                modalVideo.style.display = 'block';
+                modalVideo.muted = false;
+                modalVideo.play().catch(() => {});
+            }
+        });
 
         // Setup Netflix-style hover previews
         document.querySelectorAll('.slider-item').forEach(item => {
