@@ -996,13 +996,34 @@
         const heroVideo = document.getElementById('hero-video');
         const heroSection = document.getElementById('hero-section');
 
+        let isHeroVideoPlaying = false;
+        let isHeroVideoLoaded = false;
+
         function playHeroVideoInline() {
+            const playBtn = document.getElementById('hero-play-btn');
             if (heroVideo) {
-                // Butona basıldığında arka planda sesli oynaması için mute=0 ve controls=0 ayarlanır
-                heroVideo.src = "https://www.youtube.com/embed/gWwzxOoNzG8?autoplay=1&mute=0&controls=0&showinfo=0&rel=0&modestbranding=1&enablejsapi=1";
-                heroVideo.style.opacity = '1';
-                heroVideo.style.zIndex = '1';
-                heroVideo.style.pointerEvents = 'none';
+                if (!isHeroVideoLoaded) {
+                    // İlk tıklama: videoyu sesli şekilde yükle ve oynat
+                    heroVideo.src = "https://www.youtube.com/embed/gWwzxOoNzG8?autoplay=1&mute=0&controls=0&showinfo=0&rel=0&modestbranding=1&enablejsapi=1";
+                    heroVideo.style.opacity = '1';
+                    heroVideo.style.zIndex = '1';
+                    heroVideo.style.pointerEvents = 'none';
+                    isHeroVideoLoaded = true;
+                    isHeroVideoPlaying = true;
+                    
+                    if (playBtn) playBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Duraklat';
+                } else {
+                    // Sonraki tıklamalar: duraklat / oynat (kaldığı yerden)
+                    if (isHeroVideoPlaying) {
+                        heroVideo.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                        isHeroVideoPlaying = false;
+                        if (playBtn) playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Oynat';
+                    } else {
+                        heroVideo.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                        isHeroVideoPlaying = true;
+                        if (playBtn) playBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Duraklat';
+                    }
+                }
             }
         }
 
