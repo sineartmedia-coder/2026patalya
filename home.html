@@ -998,10 +998,11 @@
 
         function playHeroVideoInline() {
             if (heroVideo) {
-                heroVideo.src = "https://www.youtube.com/embed/gWwzxOoNzG8?autoplay=1&mute=0&controls=1&rel=0&modestbranding=1";
+                // Butona basıldığında arka planda sesli oynaması için mute=0 ve controls=0 ayarlanır
+                heroVideo.src = "https://www.youtube.com/embed/gWwzxOoNzG8?autoplay=1&mute=0&controls=0&showinfo=0&rel=0&modestbranding=1&enablejsapi=1";
                 heroVideo.style.opacity = '1';
-                heroVideo.style.zIndex = '50';
-                heroVideo.style.pointerEvents = 'auto';
+                heroVideo.style.zIndex = '1';
+                heroVideo.style.pointerEvents = 'none';
             }
         }
 
