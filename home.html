@@ -762,7 +762,7 @@
         <div class="hero-content">
             <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/sqd-8.png" alt="Film Logosu" class="hero-logo">
             <div class="buttons">
-                <button class="btn btn-play" id="hero-play-btn" onclick="openFullscreenVideo('https://www.youtube.com/embed/gWwzxOoNzG8?autoplay=1&controls=1&rel=0')">
+                <button class="btn btn-play" id="hero-play-btn" onclick="playHeroVideoInline()">
                     <i class="fa-solid fa-play"></i> Oynat
                 </button>
                 <button class="btn btn-more">
@@ -996,21 +996,14 @@
         const heroVideo = document.getElementById('hero-video');
         const heroSection = document.getElementById('hero-section');
 
-        // Mouse üstüne gelirse oyna
-        heroSection.addEventListener('mouseenter', () => {
-            if (heroVideo && heroVideo.contentWindow) {
-                heroVideo.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        function playHeroVideoInline() {
+            if (heroVideo) {
+                heroVideo.src = "https://www.youtube.com/embed/gWwzxOoNzG8?autoplay=1&mute=0&controls=1&rel=0&modestbranding=1";
                 heroVideo.style.opacity = '1';
+                heroVideo.style.zIndex = '50';
+                heroVideo.style.pointerEvents = 'auto';
             }
-        });
-
-        // Mouse çekilince videoyu durdur ve başa/görsele döndür
-        heroSection.addEventListener('mouseleave', () => {
-            if (heroVideo && heroVideo.contentWindow) {
-                heroVideo.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-                heroVideo.style.opacity = '0';
-            }
-        });
+        }
 
         // Slider Scroll Logic
         document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
