@@ -87,13 +87,15 @@
             height: 100vh;
             width: 100vw;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             padding-left: 4%;
+            padding-bottom: 150px;
             overflow: hidden;
             background-color: #000;
             background-image: url('https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/kapak.jpg');
             background-size: cover;
             background-position: center top;
+            box-sizing: border-box;
         }
 
         .hero-video {
@@ -127,7 +129,16 @@
             position: relative;
             z-index: 10;
             max-width: 50%;
-            margin-top: 50px;
+            margin-top: 0;
+        }
+
+        .hero-logo {
+            max-width: 280px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 25px;
+            display: block;
+            filter: invert(1) hue-rotate(180deg) drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.7));
         }
 
         .movie-title {
@@ -486,6 +497,13 @@
         }
 
         @media screen and (max-width: 768px) {
+            .hero {
+                padding-bottom: 90px;
+            }
+            .hero-logo {
+                max-width: 180px;
+                margin-bottom: 15px;
+            }
             .movie-title {
                 font-size: 4rem;
             }
@@ -742,7 +760,7 @@
         <iframe id="hero-video" class="hero-video" src="https://www.youtube.com/embed/2gTC4uWP3_Y?enablejsapi=1&mute=1&controls=0&showinfo=0&rel=0&autoplay=0&loop=1&playlist=2gTC4uWP3_Y&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
 
         <div class="hero-content">
-            
+            <img src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/sqd-8.png" alt="Film Logosu" class="hero-logo">
             <div class="buttons">
                 <button class="btn btn-play">
                     <i class="fa-solid fa-play"></i> Oynat
