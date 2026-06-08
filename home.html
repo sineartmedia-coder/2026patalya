@@ -528,7 +528,7 @@
             background: transparent;
             border: none;
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-            transition: transform 0.2s;
+            transition: transform 0.2s, opacity 0.4s ease;
         }
 
         .video-modal-back-btn:hover {
@@ -546,11 +546,26 @@
             background: transparent;
             border: none;
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-            transition: transform 0.2s;
+            transition: transform 0.2s, opacity 0.4s ease;
         }
 
         .video-modal-fs-btn:hover {
             transform: scale(1.1);
+        }
+
+        .video-modal-btn-hidden {
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+
+        .video-modal-hover-zone {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            z-index: 9999;
+            /* captures mouse move at the top of the screen */
         }
 
         .video-modal iframe {
@@ -746,35 +761,35 @@
         <div class="slider-wrapper">
             <div class="slider-row">
                 <!-- 1. sıra: Ramazan Üşenmez 1 -->
-                <div class="slider-item">
+                <div class="slider-item" data-desc="Kendi gezegeninden çok uzaklarda, Dünya'da büyüyen bir kahramanın kimliğini bulma ve insanlığı kötülüklerden koruma mücadelesi." data-cast="Ramazan Üşenmez">
                     <div class="video-preview-wrap">
                         <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/Ramazan%20U%CC%88s%CC%A7enmez%201%402x-80.jpg" alt="SÜPERMAN" onerror="this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=281&fit=crop'">
                         <video class="hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/superman.mp4" playsinline preload="metadata"></video>
                     </div>
                 </div>
                 <!-- 2. sıra: Orhan Bey (eski 4.) -->
-                <div class="slider-item" id="video-preview-item-2">
+                <div class="slider-item" id="video-preview-item-2" data-desc="Acımasız diyarlarda hayatta kalmaya çalışan bir kabilenin, yeni topraklar keşfetmek ve tarihe adını yazdırmak için atıldığı epik serüven." data-cast="Orhan Karaçoban">
                     <div class="video-preview-wrap">
                         <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/orhan%20bey%204%402x-80.jpg" alt="VİKİNGS" onerror="this.src='https://images.unsplash.com/photo-1585951237318-9ea5e175b891?w=500&h=281&fit=crop'">
                         <video class="hover-video" id="gokhan-hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/vikings%202%20orhan.mp4" playsinline preload="metadata"></video>
                     </div>
                 </div>
                 <!-- 3. sıra: Ramazan Bey Revize (eski 3.) -->
-                <div class="slider-item" id="video-preview-item">
+                <div class="slider-item" id="video-preview-item" data-desc="Zayıf ama cesur bir gencin, özel bir serumla süper askere dönüşerek inandığı değerler uğruna savaşma hikayesi." data-cast="Ramazan Altın">
                     <div class="video-preview-wrap">
                         <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20bey%20revize%402x-50.jpg?v=2" alt="KAPTAN AMERİKA" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=281&fit=crop'">
                         <video class="hover-video" id="ramazan-hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/ramazan%20alt%C4%B1n%20en%20yeni%20video.mp4" playsinline preload="metadata"></video>
                     </div>
                 </div>
                 <!-- 4. sıra: Yıldız Hanım (eski 5.) -->
-                <div class="slider-item">
+                <div class="slider-item" data-desc="Sıradan bir hayat süren genç bir kadının, kendisini bir anda iki farklı dünyanın ve büyük bir isyanın ortasında bulması." data-cast="Yıldız Duman">
                     <div class="video-preview-wrap">
                         <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/y%C4%B1ld%C4%B1z%20han%C4%B1m%205%402x-80.jpg" alt="RED QUEEN" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500&h=281&fit=crop'">
                         <video class="hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/alice%20video.mp4" playsinline preload="metadata"></video>
                     </div>
                 </div>
                 <!-- 5. sıra: Emre Üşenmez (eski 2.) -->
-                <div class="slider-item">
+                <div class="slider-item" data-desc="Gücü elinden alınıp Dünya'ya sürgün edilen kibirli bir prensin, gerçek bir kahraman olmayı ve fedakarlığı öğrenme süreci." data-cast="Emre Üşenmez">
                     <div class="video-preview-wrap">
                         <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/emere%20u%CC%88senmez%202%402x-80.jpg" alt="THOR" onerror="this.src='https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500&h=281&fit=crop'">
                         <video class="hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/thor.mp4" playsinline preload="metadata"></video>
@@ -829,31 +844,31 @@
         <h2 class="slider-title">Taşpınar Orijinal Yapımları</h2>
         <div class="slider-wrapper">
             <div class="slider-row">
-                <div class="slider-item">
+                <div class="slider-item" data-desc="Kaosun kraliçesinin, kendi kurallarını koyarak eski bağlarından kurtulup yepyeni bir hayata adım atma serüveni." data-cast="Esra Köroğlu">
                     <div class="video-preview-wrap">
                         <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/harley%402x-50.jpg" alt="HARLEY QUİNN" onerror="this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=281&fit=crop'">
                         <video class="hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/harley%20kahraman.mp4" playsinline preload="metadata"></video>
                     </div>
                 </div>
-                <div class="slider-item">
+                <div class="slider-item" data-desc="Sıradan bir adamın, ailesinin geleceğini güvence altına almak için karanlık ve tehlikeli bir yeraltı dünyasına adım atması." data-cast="Gökhan Çalışkan, Onur Işık">
                     <div class="video-preview-wrap">
                         <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/go%CC%88khan%20bey%206%402x-80.jpg" alt="BREAKİNG BAD" onerror="this.src='https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=500&h=281&fit=crop'">
                         <video class="hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/badd.mp4" playsinline preload="metadata"></video>
                     </div>
                 </div>
-                <div class="slider-item">
+                <div class="slider-item" data-desc="Özgürlüğe aşık bir korsanın, lanetli gemiler ve efsanevi hazineler peşindeki eğlenceli ve aksiyon dolu macerası." data-cast="Hüseyin Can Tanrıverdi, Mehpare Kanad, Cemile Burcu Genç, Hüseyin Kılıçoğlu">
                     <div class="video-preview-wrap">
                         <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/karayip%20korsanlar%C4%B1%402x-100.jpg" alt="KARAYİP KORSANLARI" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=281&fit=crop'">
                         <video class="hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/karayip%20korsanlar%C4%B1.mp4" playsinline preload="metadata"></video>
                     </div>
                 </div>
-                <div class="slider-item">
+                <div class="slider-item" data-desc="Savaş sonrası zorlu yıllarda, hırslı bir ailenin kendi kurallarını koyarak yükselme ve sokakların hakimi olma mücadelesi." data-cast="Ferhat Aslan, Enis Çelik, İbrahim Durmaz">
                     <div class="video-preview-wrap">
                         <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/peakeyy%402x-50.jpg" alt="PEAKY BLİNDERS" onerror="this.src='https://images.unsplash.com/photo-1585951237318-9ea5e175b891?w=500&h=281&fit=crop'">
                         <video class="hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/peakey.mp4" playsinline preload="metadata"></video>
                     </div>
                 </div>
-                <div class="slider-item">
+                <div class="slider-item" data-desc="Kaybedecek hiçbir şeyi olmayan bir grup insanın, zekice planlanmış yüzyılın en büyük soygununu gerçekleştirme girişimi." data-cast="Ünal Çakır, Yılmaz Gürbey">
                     <div class="video-preview-wrap">
                         <img class="poster-img" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/la%20cese%402x-50.jpg" alt="LA CASE DE PAPEL" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500&h=281&fit=crop'">
                         <video class="hover-video" src="https://raw.githubusercontent.com/sineartmedia-coder/glosst/main/c%CC%A7av%20bela.mp4" playsinline preload="metadata"></video>
@@ -898,6 +913,7 @@
     </div>
     <!-- Full Screen Video Modal -->
     <div id="fullscreen-video-modal" class="video-modal">
+        <div class="video-modal-hover-zone" onmousemove="resetFsMouseTimer()"></div>
         <button class="video-modal-back-btn" onclick="closeFullscreenVideo()" title="Geri">
             <i class="fa-solid fa-arrow-left"></i>
         </button>
@@ -933,12 +949,12 @@
                         <span>2 Sezon</span>
                         <span class="hd" style="border: 1px solid rgba(255,255,255,0.4); border-radius: 3px; padding: 1px 4px; font-size: 12px; margin-left: 5px;">HD</span>
                     </div>
-                    <div class="detail-modal-desc" style="font-size: 16px; line-height: 1.5; color: #fff;">
+                    <div id="detail-modal-desc" class="detail-modal-desc" style="font-size: 16px; line-height: 1.5; color: #fff;">
                         Eğer sen de hayatın monotonluğundan sıkıldıysan ve gerçekliğin sınırlarını zorlamak istiyorsan, doğru yerdesin. Soluksuz izleyeceğin, sınırların ötesine geçeceğin bir serüven seni bekliyor.
                     </div>
                 </div>
                 <div class="detail-modal-info-right" style="font-size: 14px; color: #777; line-height: 1.6;">
-                    <p><span style="color: white;">Oyuncu Kadrosu:</span> Ramazan Üşenmez, Gökhan Taşpınar, Emre Üşenmez</p>
+                    <p><span style="color: white;">Oyuncu Kadrosu:</span> <span id="detail-modal-cast">Ramazan Üşenmez, Gökhan Taşpınar, Emre Üşenmez</span></p>
                     <p><span style="color: white;">Türler:</span> Sürükleyici, Heyecanlı, Aksiyon, Bilim Kurgu</p>
                     <p><span style="color: white;">Bu dizi:</span> Sürükleyici, Karamsar, Heyecanlı</p>
                 </div>
@@ -1063,11 +1079,31 @@
                 const modalImg = document.getElementById('detail-modal-img');
                 const modalVideo = document.getElementById('detail-modal-video');
                 const title = document.getElementById('detail-modal-title');
+                const desc = document.getElementById('detail-modal-desc');
+                const cast = document.getElementById('detail-modal-cast');
                 
                 if (img) {
                     modalImg.src = img.src;
                     title.textContent = img.alt || 'Başlıksız';
                     modalImg.style.display = 'block';
+                }
+                
+                if (desc) {
+                    const customDesc = item.getAttribute('data-desc');
+                    if (customDesc) {
+                        desc.textContent = customDesc;
+                    } else {
+                        desc.textContent = "Eğer sen de hayatın monotonluğundan sıkıldıysan ve gerçekliğin sınırlarını zorlamak istiyorsan, doğru yerdesin. Soluksuz izleyeceğin, sınırların ötesine geçeceğin bir serüven seni bekliyor.";
+                    }
+                }
+                
+                if (cast) {
+                    const customCast = item.getAttribute('data-cast');
+                    if (customCast) {
+                        cast.textContent = customCast;
+                    } else {
+                        cast.textContent = "Ramazan Üşenmez, Gökhan Taşpınar, Emre Üşenmez";
+                    }
                 }
                 
                 if (video) {
@@ -1180,6 +1216,31 @@
         });
 
         // Full Screen Video Modal Logic
+        let fsMouseTimer;
+
+        function resetFsMouseTimer() {
+            const backBtn = document.querySelector('.video-modal-back-btn');
+            const fsBtn = document.querySelector('.video-modal-fs-btn');
+            const modal = document.getElementById('fullscreen-video-modal');
+            if (backBtn) backBtn.classList.remove('video-modal-btn-hidden');
+            if (fsBtn) fsBtn.classList.remove('video-modal-btn-hidden');
+            if (modal) modal.style.cursor = 'default';
+            
+            clearTimeout(fsMouseTimer);
+            fsMouseTimer = setTimeout(() => {
+                if (backBtn) backBtn.classList.add('video-modal-btn-hidden');
+                if (fsBtn) fsBtn.classList.add('video-modal-btn-hidden');
+                if (modal) modal.style.cursor = 'none';
+            }, 3000);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            const modal = document.getElementById('fullscreen-video-modal');
+            if (modal && modal.classList.contains('active')) {
+                resetFsMouseTimer();
+            }
+        });
+
         function openFullscreenVideo(videoUrl) {
             const modal = document.getElementById('fullscreen-video-modal');
             const iframe = document.getElementById('fullscreen-video-iframe');
@@ -1189,12 +1250,14 @@
             void modal.offsetWidth;
             modal.classList.add('active');
             document.body.style.overflow = 'hidden'; // prevent scrolling
+            resetFsMouseTimer();
         }
 
         function closeFullscreenVideo() {
             const modal = document.getElementById('fullscreen-video-modal');
             const iframe = document.getElementById('fullscreen-video-iframe');
             modal.classList.remove('active');
+            clearTimeout(fsMouseTimer);
             setTimeout(() => {
                 modal.style.display = 'none';
                 iframe.src = '';
